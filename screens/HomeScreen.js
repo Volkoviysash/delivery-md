@@ -42,10 +42,12 @@ const HomeScreen = () => {
               name
             }
           }
-        }[0]
+        }
       `
       )
-      .then((data) => setFeaturedCategories(data));
+      .then((data) => {
+        setFeaturedCategories(data);
+      });
   }, []);
 
   return (
@@ -93,25 +95,14 @@ const HomeScreen = () => {
 
         {/* Featured Rows */}
         {/* Featured */}
-        <FeaturedRow
-          title='Featured'
-          description='Paid placements'
-          featuredCategory='featured'
-        />
-
-        {/* Discounts */}
-        <FeaturedRow
-          title='Discounts'
-          description='Good Discounts'
-          featuredCategory='discounts'
-        />
-
-        {/* Offers near you */}
-        <FeaturedRow
-          title='Offers near you'
-          description='Offers near your home'
-          featuredCategory='offers'
-        />
+        {featuredCategories?.map((category) => (
+          <FeaturedRow
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            description={category.short_description}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
